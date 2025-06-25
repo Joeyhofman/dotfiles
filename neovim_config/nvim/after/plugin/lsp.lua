@@ -17,7 +17,8 @@ require("mason-lspconfig").setup({
 	  "eslint",
 	  "html",
 	  "jsonls",
-      "csharp_ls"
+      "csharp_ls",
+      "ansiblels"
   }
 })
 
@@ -44,6 +45,13 @@ require("lspconfig").html.setup {}
 require("lspconfig").jsonls.setup {}
 require("lspconfig").csharp_ls.setup {}
 
+
+
+
+require("lspconfig").ansiblels.setup {
+      on_attach = on_attach,
+      capabilities = capabilities,
+    }
 
 -- Add Twig language server
 require("lspconfig").twigls.setup {

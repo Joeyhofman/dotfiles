@@ -160,4 +160,8 @@ alias dms_start="cd /home/joey/development/eactive/project/commerce_docsys && do
 alias symconsole="docker compose exec php bin/console"
 alias symtest="docker compose exec php bin/phpunit --colors=always --testdox --do-not-cache-result --dont-report-useless-tests"
 
+alias zaskar="cd /home/joey/development/hybrid_cloud_infrastructure/zaskar/test_project"
 
+
+
+PATH=$PATH:/home/joey/.local/bin:/usr/bin/vmware-ovftool

@@ -70,6 +70,10 @@ use {
 
 use "olimorris/onedarkpro.nvim"
 
+
+-- Ansible
+use "mfussenegger/nvim-ansible"
+
 -- somewhere in your config:
 vim.cmd("colorscheme onedark")
 vim.cmd("colorscheme onedark")
