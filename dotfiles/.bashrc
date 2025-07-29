@@ -133,8 +133,4 @@ export NVM_DIR="/home/joey/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 
-alias kasgeldapp="cd /home/joey/development/flinker/kasgeld/flinker-kasgeld-app/"
-alias eactive="cd /home/joey/development/eactive/"
 
-export PATH="/home/joey/.user_scripts/:$PATH"
-export PATH="$HOME/.symfony5/bin:$PATH"

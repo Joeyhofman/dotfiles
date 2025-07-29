@@ -1,9 +1,3 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
-if [ -z "$TMUX" ]; then
-    tmux attach-session -t default || tmux new-session -s default
-fi
-
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -95,6 +89,21 @@ export LESS=-R
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
+
+
+
+#pyenv setup
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+
+if command -v pyenv >/dev/null 2>&1; then
+  export PATH="$(pyenv root)/shims:$PATH"
+  eval "$(pyenv init --path)"
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+  export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+fi
+
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -104,9 +113,9 @@ export LESS=-R
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export PATH="$(pyenv root)/shims:$PATH"
-eval "$(pyenv init --path)"
-eval "$(pyenv virtualenv-init -)"
+#export PATH="$(pyenv root)/shims:$PATH"
+#eval "$(pyenv init --path)"
+#eval "$(pyenv virtualenv-init -)"
 
 
 export NVM_DIR="/home/joey/.nvm"
@@ -118,7 +127,6 @@ export NVM_DIR="/home/joey/.nvm"
 
 #tmux settings
 
-alias kasgeldapp="cd /home/joey/development/flinker/kasgeld/flinker-kasgeld-app/"
 
 export PATH="/home/joey/.user_scripts/:$PATH"
 source /home/joey/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -138,7 +146,7 @@ fi
 #configure pyenv-virutalenv command
 eval "$(pyenv virtualenv-init -)"
 
-PATH=$(pyenv root)/shims:$PATH
+#PATH=$(pyenv root)/shims:$PATH
 
 
 
@@ -151,17 +159,42 @@ export NVM_DIR="/home/joey/.nvm"
 export PATH="$HOME/.symfony5/bin:$PATH"
 
 export TERM="xterm-256color"
-alias eactive="cd /home/joey/development/eactive/"
 
 
-alias dms_start="cd /home/joey/development/eactive/project/commerce_docsys && docker compose up -d && code ."
 
 
-alias symconsole="docker compose exec php bin/console"
-alias symtest="docker compose exec php bin/phpunit --colors=always --testdox --do-not-cache-result --dont-report-useless-tests"
 
-alias zaskar="cd /home/joey/development/hybrid_cloud_infrastructure/zaskar/test_project"
 
 
 
 PATH=$PATH:/home/joey/.local/bin:/usr/bin/vmware-ovftool
+
+
+
+#zoxide
+eval "$(zoxide init zsh)"
+
+proj() {
+  zoxide query -ls \
+    | awk '{$1=""; sub(/^ /, ""); print}' \
+    | while read -r path; do
+        printf "%-30s  %s\n" "$(/usr/bin/basename "$path")" "$path"
+      done \
+    | fzf --height=40% --reverse --with-nth=1,2 --preview='echo {}' \
+    | awk '{$1=""; sub(/^ +/, ""); print}' \
+    | while read -r selected; do
+        cd "$selected"
+      done
+}
+
+# Bind Ctrl+P to run proj
+autoload -U add-zsh-hook
+
+zle_proj() {
+  proj
+  zle reset-prompt
+}
+
+zle -N zle_proj
+
+bindkey '^P' zle_proj
