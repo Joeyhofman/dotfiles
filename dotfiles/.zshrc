@@ -129,7 +129,6 @@ export NVM_DIR="/home/joey/.nvm"
 
 
 export PATH="/home/joey/.user_scripts/:$PATH"
-source /home/joey/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 
 
@@ -173,6 +172,7 @@ PATH=$PATH:/home/joey/.local/bin:/usr/bin/vmware-ovftool
 
 #zoxide
 eval "$(zoxide init zsh)"
+export ZO_CMD_AUTO=false
 
 proj() {
   zoxide query -ls \
@@ -198,3 +198,6 @@ zle_proj() {
 zle -N zle_proj
 
 bindkey '^P' zle_proj
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/bin/terraform terraform
