@@ -201,3 +201,4 @@ bindkey '^P' zle_proj
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/bin/terraform terraform
+export PATH=$PATH:/usr/local/go/bin
