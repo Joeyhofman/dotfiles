@@ -167,6 +167,7 @@ export TERM="xterm-256color"
 
 
 PATH=$PATH:/home/joey/.local/bin:/usr/bin/vmware-ovftool
+PATH=$PATH:/home/joey/.user_scripts/
 
 
 
@@ -202,3 +203,54 @@ bindkey '^P' zle_proj
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/bin/terraform terraform
 export PATH=$PATH:/usr/local/go/bin
+
+
+
+
+
+#DOTNET
+export DOTNET_ROOT="$HOME/dotnet"
+export PATH="$PATH:$DOTNET_ROOT"
+
+alias dotnet8="DOTNET_ROLL_FORWARD=Disable dotnet"
+
+
+
+export DOTNET_ROOT=$HOME/.dotnet
+export PATH=$DOTNET_ROOT:$PATH
+
+
+
+alias killnpm="pkill -f 'npm run dev'"
+
+
+
+ngqr() {
+    PORT=${1:-8000}
+
+    # Start ngrok in foreground and capture logs
+    # Use --log=stdout so we can parse URL
+    ngrok http "$PORT" --log=stdout | while IFS= read -r line; do
+        if [[ "$line" =~ https://[a-z0-9]+\.ngrok.io ]]; then
+            URL="${BASH_REMATCH[0]}"
+            if command -v qrencode >/dev/null 2>&1; then
+                qrencode -t ansiutf8 "$URL"
+            else
+                echo "$URL"
+            fi
+            break  # stop scanning logs
+        fi
+    done
+}
+
+# Add .NET Core SDK tools
+export PATH="$PATH:/home/joey/.dotnet/tools"
+
+reset-zivra-db() {
+  docker exec -it zivra-pg psql -U postgres -d postgres -c 'DROP DATABASE "zivra-backend";'
+  docker exec -it zivra-pg psql -U postgres -d postgres -c 'CREATE DATABASE "zivra-backend";'
+  docker exec -i zivra-pg psql -U postgres -d "zivra-backend" < /home/joey/development/zivra/postgres_2026-04-10_121749.sql
+}
+
+# opencode
+export PATH=/home/joey/.opencode/bin:$PATH

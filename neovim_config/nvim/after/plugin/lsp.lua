@@ -16,7 +16,8 @@ require("mason-lspconfig").setup({
 	  "eslint",
 	  "html",
 	  "jsonls",
-      "ansiblels"
+      "ansiblels",
+      "vue_ls"
   }
 })
 
@@ -32,15 +33,6 @@ require("lspconfig").intelephense.setup {}
 require("lspconfig").phpactor.setup {}
 require("lspconfig").basedpyright.setup {}
 require("lspconfig").sqlls.setup {}
-require("lspconfig").vtsls.setup {
-    init_options = {
-        plugins = {
-            name = "@vue/typescript-plugin",
-            languages = {"vue"}
-        }
-    },
-    filetypes = {"typescript", "javascript", "typescriptreact", "javascriptreact"}
-}
 require("lspconfig").vtsls.setup {}
 require("lspconfig").bashls.setup {}
 require("lspconfig").cssls.setup {}
@@ -49,6 +41,8 @@ require("lspconfig").docker_compose_language_service.setup {}
 require("lspconfig").eslint.setup {}
 require("lspconfig").html.setup {}
 require("lspconfig").jsonls.setup {}
+require("lspconfig").vue_ls.setup {}
+
 
 
 require("lspconfig").ansiblels.setup {
